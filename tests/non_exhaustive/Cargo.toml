@@ -1,0 +1,17 @@
+[package]
+name = "non_exhaustive"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+
+[features]
+enum_allow = []
+enum_fixed = []
+enum_warn = []
+struct_allow = []
+struct_fixed = []
+struct_warn = []
+
+[lints.rust]
+unexpected_cfgs = { level = "warn", check-cfg = ['cfg(spal)'] }

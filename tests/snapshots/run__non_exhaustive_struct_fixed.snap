@@ -1,0 +1,13 @@
+---
+source: tests/run.rs
+expression: "run(\"tests/non_exhaustive/\", \"struct_fixed\")"
+---
+Output {
+    status: ExitStatus(
+        unix_wait_status(
+            0,
+        ),
+    ),
+    stdout: "",
+    stderr: "",
+}

@@ -1,0 +1,14 @@
+---
+source: tests/run.rs
+assertion_line: 31
+expression: "run(\"tests/non_exhaustive/\", \"struct_allow\")"
+---
+Output {
+    status: ExitStatus(
+        unix_wait_status(
+            0,
+        ),
+    ),
+    stdout: "",
+    stderr: "",
+}

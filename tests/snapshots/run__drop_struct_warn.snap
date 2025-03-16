@@ -1,0 +1,13 @@
+---
+source: tests/run.rs
+expression: "run(\"tests/drop/\", \"drop\", \"struct_warn\")"
+---
+Output {
+    status: ExitStatus(
+        unix_wait_status(
+            256,
+        ),
+    ),
+    stdout: "------------------------------------------------------------\nIt is a breaking change for a type to become `Drop` later, and this also happens\n\"magically\" when any type reachable through any field or variant becomes `Drop`.\nThis includes the types of private fields!\n\nTherefore it is prudent to `impl Drop` up-front to allow the maximum amount of\nfuture non-breaking changes, both in your code and the code of your dependencies.\n\nAnnotate this type with `#[cfg_attr(spal, allow(spal::drop))]` to ignore this lint\n------------------------------------------------------------\n\n⚠\u{fe0f} enum `pub enum drop::CopyEnum` should impl Drop\n  at src/lib.rs:21\n\n⚠\u{fe0f} enum `pub enum drop::NoDropEnum` should impl Drop\n  at src/lib.rs:10\n\n⚠\u{fe0f} struct `pub struct drop::CopyStruct` should impl Drop\n  at src/lib.rs:16\n\n⚠\u{fe0f} struct `pub struct drop::DropGlueStruct` should impl Drop\n  at src/lib.rs:1\n\n⚠\u{fe0f} struct `pub struct drop::DropPublic` should impl Drop\n  at src/lib.rs:34\n\n⚠\u{fe0f} struct `pub struct drop::NoDropStruct` should impl Drop\n  at src/lib.rs:6\n\n",
+    stderr: "",
+}

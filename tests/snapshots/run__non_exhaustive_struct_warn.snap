@@ -1,0 +1,13 @@
+---
+source: tests/run.rs
+expression: "run(\"tests/non_exhaustive/\", \"exhaustive-struct\", \"struct_warn\")"
+---
+Output {
+    status: ExitStatus(
+        unix_wait_status(
+            256,
+        ),
+    ),
+    stdout: "------------------------------------------------------------\nMarking a struct `#[non_exhaustive]` means future changes can add new fields.\n\nAnnotate this type with `#[cfg_attr(spal, allow(spal::exhaustive_struct))]` to ignore this lint\n------------------------------------------------------------\n\n⚠\u{fe0f} struct `pub struct non_exhaustive::struct_warn::NormalEmpty` should be marked #[non_exhaustive]\n  at src/struct_warn.rs:13\n\n⚠\u{fe0f} struct `pub struct non_exhaustive::struct_warn::NormalPublic` should be marked #[non_exhaustive]\n  at src/struct_warn.rs:14\n\n⚠\u{fe0f} struct `pub struct non_exhaustive::struct_warn::TupleEmpty()` should be marked #[non_exhaustive]\n  at src/struct_warn.rs:8\n\n⚠\u{fe0f} struct `pub struct non_exhaustive::struct_warn::TuplePublic(pub usize, pub usize)` should be marked #[non_exhaustive]\n  at src/struct_warn.rs:10\n\n⚠\u{fe0f} struct `pub struct non_exhaustive::struct_warn::Unit` should be marked #[non_exhaustive]\n  at src/struct_warn.rs:6\n\n",
+    stderr: "",
+}

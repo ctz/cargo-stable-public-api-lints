@@ -1,0 +1,30 @@
+name: build
+
+on:
+  push:
+  pull_request:
+  schedule:
+    - cron: "0 18 * * *"
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: true
+          persist-credentials: false
+
+      - name: Install nightly toolchain
+        uses: dtolnay/rust-toolchain@master
+        with:
+          toolchain: nightly
+
+      - name: Build (debug)
+        run: cargo build
+
+      - name: Run tests (debug)
+        run: cargo test
