@@ -6,6 +6,7 @@ for producing stable public APIs.  These are:
 - are all public enums `#[non_exhaustive]`?
 - are all public structs `#[non_exhaustive]`?
 - do all types explicitly `impl Drop`?
+- can enums with sorted variants be kept sorted over time?
 
 This is built on top of the rustdoc JSON output and so requires
 a nightly toolchain to be installed.

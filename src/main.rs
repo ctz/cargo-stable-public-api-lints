@@ -4,6 +4,7 @@ use rustdoc_types::{Id, ItemKind};
 mod passes {
     pub(super) mod drop;
     pub(super) mod non_exhaustive;
+    pub(super) mod sorted_enum;
 }
 
 /// This tool implements some lints intended to help crate authors
@@ -92,6 +93,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     passes::non_exhaustive::check_enums(&ctx, &mut diagnostics);
     passes::non_exhaustive::check_structs(&ctx, &mut diagnostics);
     passes::drop::check(&ctx, &mut diagnostics);
+    passes::sorted_enum::check(&ctx, &mut diagnostics);
 
     if diagnostics.lints_output.is_empty() {
         Ok(())
@@ -106,6 +108,7 @@ enum LintId {
     ExhaustiveStruct,
     ExhaustiveEnum,
     Drop,
+    SortedEnum,
 }
 
 impl LintId {
@@ -115,6 +118,7 @@ impl LintId {
             Self::ExhaustiveStruct => "spal::exhaustive_struct",
             Self::ExhaustiveEnum => "spal::exhaustive_enum",
             Self::Drop => "spal::drop",
+            Self::SortedEnum => "spal::sorted_enum",
         }
     }
 
@@ -133,6 +137,12 @@ impl LintId {
                 This includes the types of private fields!\n\n\
                 Therefore it is prudent to `impl Drop` up-front to allow the maximum amount of\n\
                 future non-breaking changes, both in your code and the code of your dependencies."
+            }
+            Self::SortedEnum => {
+                "Enums whose variants with implicitly assigned values, and are in sorted order,\n\
+                can only be added to at the end which would break the sorted order.  However\n\
+                if (at least) one variant is marked `#[non_exhaustive]` then new variants can\n\
+                be added in any position, thus maintaining the sortedness."
             }
         }
     }

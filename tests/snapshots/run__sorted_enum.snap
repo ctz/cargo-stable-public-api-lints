@@ -1,0 +1,13 @@
+---
+source: tests/run.rs
+expression: "run(\"tests/sorted_enum/\", \"sorted-enum\", \"default\")"
+---
+Output {
+    status: ExitStatus(
+        unix_wait_status(
+            256,
+        ),
+    ),
+    stdout: "------------------------------------------------------------\nEnums whose variants with implicitly assigned values, and are in sorted order,\ncan only be added to at the end which would break the sorted order.  However\nif (at least) one variant is marked `#[non_exhaustive]` then new variants can\nbe added in any position, thus maintaining the sortedness.\n\nAnnotate this type with `#[cfg_attr(spal, allow(spal::sorted_enum))]` to ignore this lint\n------------------------------------------------------------\n\n⚠\u{fe0f} enum `pub enum sorted_enum::Sorted` has its variants sorted, but this cannot be respected for additions\n  at src/lib.rs:7\n\n",
+    stderr: "",
+}

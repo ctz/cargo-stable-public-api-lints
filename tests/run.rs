@@ -56,6 +56,11 @@ fn drop_struct_warn() {
     insta::assert_debug_snapshot!(run("tests/drop/", "drop", "struct_warn"));
 }
 
+#[test]
+fn sorted_enum() {
+    insta::assert_debug_snapshot!(run("tests/sorted_enum/", "sorted-enum", "default"));
+}
+
 fn run(path: &str, lint_id: &str, feature: &str) -> Output {
     let mut output = Command::new("cargo")
         .arg("-q")
